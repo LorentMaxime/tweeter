@@ -98,7 +98,7 @@ function selectUserByPseudo($pseudo){
 
 function selectDixDerniersTweets()
 {
-    $sql = "SELECT tweets.*, users.pseudo FROM tweets JOIN users ON tweets.author_id = users.id ORDER BY date_created DESC LIMIT 10; ";
+    $sql = "SELECT tweets.*, users.pseudo FROM tweets JOIN users ON tweets.author_id = users.id ORDER BY date_created DESC LIMIT 10;";
     $cnx = connect();
     $pStmt = $cnx->prepare($sql); // à la place d'un prepare, je pouvais faire un query
     $pStmt->execute();
@@ -117,8 +117,13 @@ function getUserById($userId){
 }
 
 function getTweetById($userId){
-    $sql = "SELECT message FROM tweets JOIN users ON tweets.author_id = users.id;";
-
-
-
+    $sql = "SELECT u.*, t.id as id_tweet, t.author_id , likes_quantity, t.message, t.date_created as date_tweet FROM users as u JOIN tweets as t ON u.id = t.author_id WHERE u.id = :userId ORDER BY date_created DESC;";
+    //$sql = "SELECT tweets.*, users.username FROM tweets JOIN users ON tweets.author_id"
+    $cnx = connect();
+    $pStmt = $cnx->prepare($sql);
+    $pStmt->execute([
+        'userId' =>$userId,
+    ]);
+    return $pStmt->fetchAll();
 }
+

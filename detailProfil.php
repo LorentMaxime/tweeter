@@ -2,30 +2,25 @@
 include 'include/db.php';
 
 
-var_dump($_GET);
-
 // récuperation du parametre passé dans la chaine d'interrogation
 $userId = $_GET['user_id'];
 
 $user = getUserById($userId);
-var_dump($user);
+
+$tweets = getTweetById($userId);
 
 include 'include/top.php';
 ?>
 
 <main class="section">
+
     <div class="container content">
         <h2>Profil de <?=$user['pseudo']?></h2>
+
         <p> <?= !empty($user['biographie'])?'biographie : '.$user['biographie'] : ""?> </p>
 
-
-
-
-
-
+        <?php include 'include/tweet_list.php';?>
     </div>
-
-
 
 </main>
 
