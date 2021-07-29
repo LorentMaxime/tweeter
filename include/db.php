@@ -127,3 +127,10 @@ function getTweetById($userId){
     return $pStmt->fetchAll();
 }
 
+function incrementLikesQuantity($tweetId)
+{
+    $pdo = connect();
+    $sql = "UPDATE tweets SET likes_quantity = likes_quantity + 1 WHERE id = :id";
+    $Stmt = $pdo->prepare($sql);
+    return $Stmt->execute([":id" =>$tweetId]);
+}

@@ -30,7 +30,7 @@ foreach ($tweets as $tweet) :
                     <a class="level-item">
                         <span class="icon is-small"><i class="fas fa-retweet"></i></span>
                     </a>
-                    <a class="level-item">
+                    <a class="level-item" href="add_like.php?tweet_id=<?=$tweet['id'] ?>">
                         <span class="icon is-small"><i class="fas fa-heart"></i></span>
                     </a>
                 </div>
