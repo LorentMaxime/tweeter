@@ -48,13 +48,15 @@ function selectAllTweet()
 
 }*/
 
-function insertTweet(string $tweet)
+function insertTweet(string $tweet, string $author_id)
 {
-    $sql = "INSERT INTO tweets (id, author_id, message, likes_quantity, date_created) VALUES(null,1,:tweet,0,now());";
+    $sql = "INSERT INTO tweets (id, author_id, message, likes_quantity, date_created) VALUES(null, :author_id, :tweet,0,now());";
     $cnx = connect();
     $pStmt = $cnx-> prepare($sql);
     $pStmt->execute([
         ':tweet'=>$tweet,
+        ':author_id'=>$author_id
+
     ]);
 
 }

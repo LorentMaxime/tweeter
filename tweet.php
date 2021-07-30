@@ -1,10 +1,13 @@
 <?php
 session_start();
-include 'include/db.php';
+
 
 if(!isset($_SESSION['user'])){
     header('Location: connexion.php');
+    die();
 }
+
+include 'include/db.php';
 
 // initialisation tableau d'erreurs
     $errors = [];
@@ -36,24 +39,9 @@ if(!isset($_SESSION['user'])){
     // est ce qu'il y a des erreurs ?
     // si non
     if (empty($errors)){
-    // todo : envoyer le message en BDD
-        insertTweet($message);
+    // envoyer le message en BDD
+        insertTweet($message, $_SESSION['user']['id']);
 
-
-/*
-        $results = selectAllTweet();
-        var_dump($results);
-        foreach ($results as $result){
-            echo $result['message'].'<br>';
-        }
-
-        $results = selectTweetById(1);
-        var_dump($results);
-        echo $results['message'];
-
-        // redirection vers la page d'accueil
-        //header('Location: index.php');
-        //die();*/
     }
 
 }

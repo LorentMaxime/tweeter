@@ -30,19 +30,27 @@
             <div id="navbarBasicExample" class="navbar-menu has-text-centered">
                 <div class="navbar-start">
                     <a class="navbar-item" href="index.php">
-                        Home
+                        Accueil
                     </a>
-
+                    <?php if(isset($_SESSION['user'])) : ?>
                     <a class="navbar-item" href="tweet.php">
                         Postez un message !
                     </a>
-                </div>
 
+                </div>
+                <?php endif; ?>
                 <div class="navbar-end">
+                    <?php if(empty($_SESSION['user'])) : ?>
                     <a class="navbar-item button is-info is-light" href="inscription.php">
                         <strong>Inscription</strong>
                     </a>
                     <a class="navbar-item button is-light button is-success" href="connexion.php">Connexion</a>
+                    <?php else : ?>
+                    <a class="navbar-item button is-danger is-light" href="deconnexion.php">
+                        <span class="icon mr-1"><i class="fas fa-user"></i></span>
+                        Deconnexion (<?= $_SESSION['user']['pseudo']?>)
+                    </a>
+                    <?php endif; ?>
                 </div>
 
             </div>
@@ -50,12 +58,13 @@
     </div>
 </header>
 
-<?php    if (!empty($_SESSION['flash'])) : ?>
+<?php  if (!empty($_SESSION['flash'])) : ?>
     <div class="container content">
         <div class="notification is-<?= $_SESSION['flash'][1] ?> has-text-centered">
             <?=$_SESSION['flash'][0] ?>
         </div>
         <?php
+        // on a afficher le message on peut donc le supprimer
         unset($_SESSION['flash']);
         ?>
     </div>
