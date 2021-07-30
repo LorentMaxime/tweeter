@@ -1,6 +1,13 @@
 <footer class="section">
     <div class="container">
-        &copy;<?=date("Y")?>
+
+        <div class="content has-text-centered">
+            <p>
+                <strong>Tweeter</strong> &copy; <?= date('Y')?> by <a href="https://www.eni-ecole.fr" target="_blank">ENI Ecole Informatique</a>.
+            </p>
+            <p>page vue&nbsp;<?= $_SESSION['indexViews'] ?>&nbsp;fois</p>
+        </div>
+
     </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

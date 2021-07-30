@@ -42,12 +42,21 @@
                     <a class="navbar-item button is-info is-light" href="inscription.php">
                         <strong>Inscription</strong>
                     </a>
-                    <a class="navbar-item button is-light button is-success" href="#">
-                        Connexion
-                    </a>
+                    <a class="navbar-item button is-light button is-success" href="connexion.php">Connexion</a>
                 </div>
 
             </div>
         </nav>
     </div>
 </header>
+
+<?php    if (!empty($_SESSION['flash'])) : ?>
+    <div class="container content">
+        <div class="notification is-<?= $_SESSION['flash'][1] ?> has-text-centered">
+            <?=$_SESSION['flash'][0] ?>
+        </div>
+        <?php
+        unset($_SESSION['flash']);
+        ?>
+    </div>
+<?php endif; ?>

@@ -1,5 +1,15 @@
 <?php
+// previent PHP que l'on veut utiliser les sessions
+
+session_start();
+
 include 'include/db.php';
+if (empty($_SESSION['indexViews'])){
+    $_SESSION['indexViews']=1;
+}else{
+    $_SESSION['indexViews']++;
+}
+
 
 include 'include/top.php';
 ?>

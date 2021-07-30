@@ -1,5 +1,10 @@
 <?php
+session_start();
 include 'include/db.php';
+
+if(!isset($_SESSION['user'])){
+    header('Location: connexion.php');
+}
 
 // initialisation tableau d'erreurs
     $errors = [];

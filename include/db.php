@@ -86,7 +86,8 @@ function selectUserByEmail($email)
 
 }
 
-function selectUserByPseudo($pseudo){
+function selectUserByPseudo($pseudo)
+{
     $sql = 'SELECT * FROM users WHERE pseudo= :pseudo';
     $cnx = connect();
     $pStmt = $cnx->prepare($sql);
@@ -133,4 +134,16 @@ function incrementLikesQuantity($tweetId)
     $sql = "UPDATE tweets SET likes_quantity = likes_quantity + 1 WHERE id = :id";
     $Stmt = $pdo->prepare($sql);
     return $Stmt->execute([":id" =>$tweetId]);
+}
+
+function getUserByIdentifiant($identifiant)
+{
+    $sql = "SELECT * FROM users WHERE email = :login OR pseudo = :login;";
+    $cnx = connect();
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute([
+        ':login'=>$identifiant
+    ]);
+    $result = $stmt->fetch();
+    return $result ? $result: null;
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
     // initialisation tableau d'erreurs
     $errors = [];
 
@@ -12,14 +13,14 @@
     }
 
     // le formulaire est il soumis ?
-    var_dump($_POST);
+
     if (!empty($_POST)){
         // recuperer les données -- strip_tags enleve les balise html pour contrer le hack
         $email = strip_tags($_POST['email']);
         $pseudo = strip_tags($_POST['username']);
         $password = $_POST['password'];
         $bio = strip_tags($_POST['bio']);
-        var_dump($_POST);
+
 
         // valider les données //
 
@@ -72,10 +73,13 @@
             insertUser($email,$pseudo,$hash,$bio);
 
             // todo : message flash (session)
+            $_SESSION['flash'] = ['Bienvenue parmi nous '.$pseudo,'success'];
 
             // redirection vers la page d'accueil
             header('Location: index.php');
             die();
+        }else {
+            $_SESSION['flash'] = ['T\'es con ou t\'es con !?!? Vous avez des erreurs. Corrigez les SVP !','danger'];
         }
 
     }
@@ -105,7 +109,7 @@
                 <div class="field">
                     <label for="username">Pseudo</label>
                     <div class="control">
-                        <input name="username" value="<?=$username ?? ""?>" class="input <?=!empty($errors['email'])? "is-danger" : "" ?>" type="text" id="username" placeholder="saisissez votre pseudo">
+                        <input name="username" value="<?=$username ?? ""?>" class="input <?=!empty($errors['username'])? "is-danger" : "" ?>" type="text" id="username" placeholder="saisissez votre pseudo">
                     </div>
                     <?php if(!empty($errors['username'])):?>
                         <p class="help is-danger"><?= $errors['username'] ?></p>
@@ -114,7 +118,7 @@
                 <div class="field">
                     <label for="password">Mot de passe</label>
                     <div class="control">
-                        <input name="password" class="input <?=!empty($errors['email'])? "is-danger" : "" ?>" type="password" id="password" placeholder="saisissez votre password">
+                        <input name="password" class="input <?=!empty($errors['password'])? "is-danger" : "" ?>" type="password" id="password" placeholder="saisissez votre password">
                     </div>
                     <?php if(!empty($errors['password'])):?>
                         <p class="help is-danger"><?= $errors['password'] ?></p>
@@ -123,7 +127,7 @@
                 <div class="field">
                     <label for="bio">Bio</label>
                     <div class="control">
-                        <textarea name="bio" class="textarea <?=!empty($errors['email'])? "is-danger" : "" ?>" type="bio" id="bio" placeholder="saisissez votre password"><?=$bio ?? ""?></textarea>
+                        <textarea name="bio" class="textarea <?=!empty($errors['bio'])? "is-danger" : "" ?>" type="bio" id="bio" placeholder="saisissez votre password"><?=$bio ?? ""?></textarea>
                     </div>
                     <?php if(!empty($errors['bio'])):?>
                         <p class="help is-danger"><?= $errors['bio'] ?></p>
